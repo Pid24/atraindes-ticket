@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seller;
 use App\Models\Ticket;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -19,20 +20,26 @@ class FrontController extends Controller
     public function index()
     {
         $data = $this->frontService->getFrontPageData();
-        dd($data);
-        // return view('front.index', $data);
+        // dd($data);
+        return view('front.index', $data);
     }
 
     public function details(Ticket $ticket)
     {
-        dd($ticket);
-        // return view('front.details', compact('ticket'));
+        // dd($ticket);
+        return view('front.details', compact('ticket'));
     }
 
     public function category(Category $category)
     {
-        dd($category);
-        // return view('front.category', compact('category'));
+        // dd($category);
+        return view('front.category', compact('category'));
+    }
+
+    public function explore(Seller $seller)
+    {
+        // dd($seller);
+        return view('front.seller', compact('seller'));
     }
 
     // public function index()
