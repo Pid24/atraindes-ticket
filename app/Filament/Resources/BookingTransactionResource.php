@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\BookingTransactionResource\Pages;
 use App\Filament\Resources\BookingTransactionResource\RelationManagers;
+use App\Jobs\SendBookingApprovedEmail;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Notifications\Notification;
 use Filament\Tables\Filters\SelectFilter;
@@ -139,6 +140,9 @@ class BookingTransactionResource extends Resource
                 ->action(function (BookingTransaction $record) {
                     $record->is_paid = true;
                     $record->save();
+
+                    SendBookingApprovedEmail::dispatch($record);
+
                     Notification::make()
                     ->title('Ticket Approved')
                     ->success()
